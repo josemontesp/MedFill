@@ -2,70 +2,158 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, CajaDeRemedios, $ionicModal) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-  
-  $ionicModal.fromTemplateUrl('templates/buscar.html', {
-    scope: $scope,
-    animation: 'slide-in-up',
-    focusFirstInput: true
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-  $scope.openModal = function() {
-    $scope.modal.show();
-  };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-  };
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
+.controller('ChatsCtrl', function($scope, CajaDeRemedios, $ionicModal, $state) {
+    // With the new view caching in Ionic, Controllers are only called
+    // when they are recreated or on app start, instead of every page change.
+    // To listen for when this page is active (for example, to refresh data),
+    // listen for the $ionicView.enter event:
+    //
+    //$scope.$on('$ionicView.enter', function(e) {
+    //});
+    $scope.remedios = CajaDeRemedios.all();
+    $scope.$on('cambio-la-caja', function(event, args) {
+        $scope.remedios = CajaDeRemedios.all();
+    });
 
-  $scope.hacerPedido = function(){
-    alert();
-    console.log('hola');
-  };
-
-  $scope.agregarRemedio = function(){
-      $scope.openModal();
-
-  };
-  $scope.busqueda = {};
-
-  $scope.clear = function(){
-      alert();
-      $scope.busqueda.parametro = "";
-  };
+    $scope.hacerPedido = function() {
+        $state.go('tab.misRemediosCheckOut');
+    };
 
 
-  $scope.chats = CajaDeRemedios.all();
-  $scope.remove = function(chat) {
-    CajaDeRemedios.remove(chat);
-  };
+    $scope.buscarRemedio = function() {
+        $state.go('tab.misRemediosBuscar');
+    };
+
+    $scope.remove = function(remedio) {
+        CajaDeRemedios.remove(remedio);
+    };
 })
 
+
+.controller('BuscarCtrl', function($scope, Productos, $ionicHistory) {
+    $scope.busqueda = {
+        lista: [],
+        parametro: ''
+    };
+
+    $scope.$on('llegaron-los-productos', function(event, args) {
+        $scope.busqueda.lista = Productos.all();
+    });
+
+    $scope.clear = function() {
+        alert();
+        $scope.busqueda.parametro = "";
+    };
+
+    $scope.busqueda.buscar = function() {
+        $scope.busqueda.lista = Productos.filtrar($scope.busqueda.parametro);
+    };
+
+    $scope.$watch('busqueda.parametro', function() {
+        if (Productos.all()) {
+            $scope.busqueda.buscar();
+        }
+    });
+})
+    .controller('BuscarProductoCtrl', function($scope, $stateParams, CajaDeRemedios, Productos, $ionicHistory, goBackMany) {
+        $scope.$on('llegaron-los-productos', function(event, args) {
+            $scope.producto = Productos.get($stateParams.remedioId);
+        });
+        $scope.producto = Productos.get($stateParams.remedioId);
+        $scope.agregar = function() {
+            CajaDeRemedios.add($scope.producto);
+            goBackMany(2);
+        };
+    })
+
+.controller('CheckOutCtrl', function($scope, $stateParams, CajaDeRemedios, $cordovaCamera, $cordovaFile) {
+    // 1
+    $scope.images = [];
+    console.log($scope.images);
+    $scope.addImage = function() {
+        // 2
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+        };
+
+        // 3
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+
+            // 4
+            onImageSuccess(imageData);
+
+            function onImageSuccess(fileURI) {
+                createFileEntry(fileURI);
+            }
+
+            function createFileEntry(fileURI) {
+                window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+            }
+
+            // 5
+            function copyFile(fileEntry) {
+                var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+                var newName = makeid() + name;
+
+                window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
+                        fileEntry.copyTo(
+                            fileSystem2,
+                            newName,
+                            onCopySuccess,
+                            fail
+                        );
+                    },
+                    fail);
+            }
+
+            // 6
+            function onCopySuccess(entry) {
+                $scope.$apply(function() {
+                    $scope.images.push(entry.nativeURL);
+                    console.log($scope.images);
+                });
+            }
+
+            function fail(error) {
+                console.log("fail: " + error.code);
+            }
+
+            function makeid() {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 5; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text;
+            }
+
+        }, function(err) {
+            console.log(err);
+        });
+    }
+
+    $scope.urlForImage = function(imageName) {
+        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+        var trueOrigin = cordova.file.dataDirectory + name;
+        return trueOrigin;
+    }
+})
+
+
 .controller('ChatDetailCtrl', function($scope, $stateParams, CajaDeRemedios) {
-  // $scope.chat = Chats.get($stateParams.chatId);
+    // $scope.chat = Chats.get($stateParams.chatId);
+    $scope.refresh = function() {
+
+    };
 })
 
 .controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+    $scope.settings = {
+        enableFriends: true
+    };
 });

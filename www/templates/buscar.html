@@ -1,51 +1,18 @@
-<ion-modal-view>
-   <!--  <ion-header-bar>
-      <h1 class="title">My Modal title</h1>
-    </ion-header-bar> -->
-    <ion-header-bar class="bar item-input-inset" > 
-      <label class="item-input-wrapper search">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input placeholder="Buscar..." ng-keyup="buscar()" type="search" ng-model="busqueda.parametro"> 
-        <i ng-if="busqueda.parametro.length > 0" ng-click="clear()" class="icon ion-close placeholder-icon"></i>
+<ion-view view-title="Buscar">
 
-      </label>
-      <i class="ion-close" style="font-size: 32px; padding-left: 3%;" ng-click="closeModal()"></i>
-
- </ion-header-bar>
-    <ion-content>
-
-      <div class="list">
-
-    <a class="item item-thumbnail-left" href="#/tab/chats/0">
-      <img src="http://www.bayerandina.com/images/negocios/fotos_productos/CC/ecuador/foto_asa500ecu.jpg">
-      <h2>Aspirina 500mg Bayer</h2>
-      <p>Ahorro del 15%</p>
-      <h1 style="position:absolute; right: 30px; top: 5px; color: green;">$4.550</h1>
-    </a>
-    <a class="item item-thumbnail-left" href="#">
-      <img src="http://www.drogariamunizdobrasil.com.br/imagensSistema/8f6fcfeeddd669f4d9a8060f956e9a17.jpeg">
-      <h2>Paracetamol 750mg</h2>
-      <p>Ahorro del 230%</p>
-      <h1 style="position:absolute; right: 30px; top: 5px; color: green;">$4.550</h1>
-    </a>
-    <a class="item item-thumbnail-left" href="#">
-      <img src="http://epd.bz/304-thickbox/generico-atarax-hydroxyzin.jpg">
-      <h2>Atarax 25 mg</h2>
-      <p>Entrega inmediata</p>
-      <h1 style="position:absolute; right: 30px; top: 5px; color: green;">$4.550</h1>
-    </a>
-    <a class="item item-thumbnail-left" href="#">
-      <img src="http://www.germedgenericos.com.br/media/medicamentos/big/87_clonazepam.png">
-      <h2>Rabotril generico 30 comprimidos</h2>
-      <p>Entrega inmediata</p>
-      <h1 style="position:absolute; right: 30px; top: 5px; color: green;">$4.550</h1>
-    </a>
-    <a class="item item-thumbnail-left" href="#">
-      <img src="http://topgenericpharmacy.com/151-thickbox/prozac-generico-30mg.jpg">
-      <h2>Prozac 20mg </h2>
-      <p>Ahorro del 120%</p>
-      <h1 style="position:absolute; right: 30px; top: 5px; color: green;">$4.550</h1>
-    </a>
-</div>
-    </ion-content>
-</ion-modal-view>
+  <ion-content class="padding">
+<label class="item item-input">
+  <i class="icon ion-search placeholder-icon"></i>
+  <input type="search" placeholder="Search" ng-model="busqueda.parametro">
+  <i ng-if="busqueda.parametro.length > 0" ng-click="clear()" class="icon ion-close placeholder-icon" ></i>
+</label>
+    <div class="list">
+        <a class="item item-thumbnail-left" href="#/tab/misRemedios/buscar/{{producto.objectId}}" ng-repeat="producto in busqueda.lista">
+          <img ng-src="{{producto.fotoCaja.url}}">
+          <h2>{{producto.nombre}}</h2>
+          <p>{{producto.mg}}</p>
+          <h1 style="position:absolute; right: 30px; top: 5px; color: green;">{{producto.precio}}</h1>
+        </a>
+    </div>
+  </ion-content>
+</ion-view>

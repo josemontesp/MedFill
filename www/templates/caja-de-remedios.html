@@ -1,18 +1,22 @@
-<ion-view view-title="Mi caja de remedios">
+<ion-view view-title="Mis remedios">
 <ion-nav-buttons side="right">
-      <i class="button ion-plus-round" ng-click="agregarRemedio()"> Agregar</i>
+      <i class="button ion-plus-round" ng-click="buscarRemedio()"> Agregar</i>
    </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/misRemedios/1">
-        <img ng-src="http://images.sodahead.com/polls/002132205/956384370_8841blue_pill_answer_2_xlarge.jpeg">
-        <h2>Eutirox</h2>
-        <p>100mg 20 comprimidos</p>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="remedio in remedios" type="item-text-wrap" href="#/tab/misRemedios/1">
+        <img ng-src="{{remedio.fotoPastilla.url}}">
+        <h2>{{remedio.nombre}}</h2>
+        <p>{{remedio.mg}}mg {{remedio.cantidadDeComprimidos}} comprimidos</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        <ion-option-button class="button-assertive" ng-click="remove(remedio)">
           Eliminar
         </ion-option-button>
+      </ion-item>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" href="#/tab/misRemedios/buscar">
+          <img src="" alt="">
+          Agregar remedio
       </ion-item>
 
       

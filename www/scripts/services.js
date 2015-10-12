@@ -1,50 +1,111 @@
 angular.module('starter.services', [])
 
-.factory('CajaDeRemedios', function() {
-  // Might use a resource here that returns a JSON array
+.factory('CajaDeRemedios', function($rootScope, $localstorage) {
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
-  }];
+  var recetas = [];
+  var caja = $localstorage.getObject('caja') || [];
 
   return {
     all: function() {
-      return chats;
+      return caja;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(remedio) {
+      caja.splice(caja.indexOf(remedio), 1);
+      $localstorage.setObject('caja', caja);
     },
-    get: function(chatId) {
+    add: function(remedio){
+      for (var i=0; i<caja.length; i++){
+        console.log('id del producto:' + remedio.objectId );
+        if (caja[i].objectId == remedio.objectId){
+            console.log('Ya está este remedio en tus remedios');
+            $rootScope.$broadcast('cambio-la-caja');
+            return;
+        }
+      }
+      caja.push(remedio);
+      $localstorage.setObject('caja', caja);
+      $rootScope.$broadcast('cambio-la-caja');
+    },
+    get: function(remedioId) {
       for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+        if (caja[i].objectId == remedioId) {
+          return caja[i];
         }
       }
       return null;
     }
   };
+})
+.factory('Productos', function($rootScope) {
+  var productos = [];
+
+  return {
+    all: function() {
+      return productos;
+    },
+    actualizar: function(){
+        var Producto = Parse.Object.extend("Producto");
+        var query = new Parse.Query(Producto);
+        query.find({
+          success: function(results){
+              productos = results.map(function(v) {return v._toFullJSON([]);});
+              $rootScope.$broadcast('llegaron-los-productos');
+              console.log('productos sacados desde el factory');
+          },
+          error: function(error) {
+              console.log("Error: " + error.code + " " + error.message);
+          }
+        });
+    },
+    filtrar: function(filtro){
+      a = function(v){
+          v = v.nombre.toLowerCase().split(' ');
+          p = filtro.toLowerCase().split(' ');
+          for (var j = 0; j<p.length; j++){
+            for (var i = 0; i<v.length; i++){
+              if (v[i].lastIndexOf(p[j], 0) === 0)
+                return true;
+            }
+          }
+          return false;
+      };
+      if (!filtro)
+          return productos;
+      else
+        return productos.filter(a);
+    },
+    get: function(id) {
+      for (var i = 0; i < productos.length; i++) {
+        if (productos[i].objectId == id) {
+          return productos[i];
+        }
+      }
+      return null;
+    }
+  };
+})
+.factory('$localstorage', ['$window', function($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '[]');
+    }
+  }
+}])
+.service('goBackMany',function($ionicHistory){
+  return function(depth){
+    var historyId = $ionicHistory.currentHistoryId();
+    var history = $ionicHistory.viewHistory().histories[historyId];
+    var targetViewIndex = history.stack.length - 1 - depth;
+    $ionicHistory.backView(history.stack[targetViewIndex]);
+    $ionicHistory.goBack();
+  }
 });

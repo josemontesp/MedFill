@@ -1,0 +1,22 @@
+<ion-view view-title="{{producto.nombre}}">
+
+  <ion-content class="padding">
+  	<div class="list card">
+
+	  <div class="item item-avatar">
+	    <img src="{{producto.fotoPastilla.url}}">
+	    <h2>{{producto.nombre}}</h2>
+	    <p>{{producto.mg}}mg</p>
+	  </div>
+
+	  <div class="item item-image">
+	    <img src="{{producto.fotoCaja.url}}">
+	  </div>
+
+	  <button class="button button-block button-balanced" ng-click="agregar()">
+  		Agregar a mis remedios
+	</button>
+
+	</div>
+  </ion-content>
+</ion-view>
