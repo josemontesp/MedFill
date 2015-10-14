@@ -22,7 +22,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      //StatusBar.styleDefault();
+      StatusBar.style(1); //status bar blanca
     }
   });
 })
@@ -34,6 +35,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+
+
+  // Intro de la app
+  .state('intro', {
+    url: '/',
+    templateUrl: 'intro.html',
+    controller: 'IntroCtrl'
+  })
 
   // setup an abstract state for the tabs directive
     .state('tab', {
@@ -111,6 +120,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/misRemedios');
+  //$urlRouterProvider.otherwise('/tab/misRemedios');
+  $urlRouterProvider.otherwise("/");
 
 });

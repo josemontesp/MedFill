@@ -43,19 +43,71 @@
 
     <!-- endbuild -->
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" animation="slide-left-right-ios7">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable">
+
+    <ion-nav-bar class="bar-calm">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>
+
+    <!-- <ion-nav-bar class="nav-title-slide-ios7" type="bar-default" back-button-type="button-icon" back-button-icon="icon ion-arrow-left-c">
+    </ion-nav-bar> -->
     <!--
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
     -->
-    <ion-nav-view></ion-nav-view>
+    <ion-nav-view class="background"></ion-nav-view>
+
+
+    <script id="intro.html" type="text/ng-template"> 
+      <ion-view left-buttons="leftButtons" right-buttons="rightButtons" hide-nav-bar="true">
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+          <ion-slide>
+            <h3>Muchas gracias por elegir MedFill</h3>
+            <div id="logo">
+              <img src="#">
+            </div>
+            <p>
+              Estamos trabajando duro por reinventar la farmacia
+            </p>
+            <p>
+            </p>
+          </ion-slide>
+          <ion-slide>
+            <h3>Usar MedFill es sencillo</h3>
+            
+            <div id="list">
+              <ol>
+                <li>Selecciona tus remedios y las dosis en las que los tomas</li>
+                <li>Elige cada cuanto quieres recibir tus remedios</li>
+                <li>Sube tu receta</li>
+                <li>Recibe tus remedios todos los meses en tu casa</li>
+              </ol>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <h3>¿Tienes preguntas?</h3>
+            <p>
+              No dudes en contactarnos.
+            </p>
+            <button class="button button-clear button-calm" ng-click="startApp()"> Entrar</button>
+          </ion-slide>
+        </ion-slide-box>
+      </ion-view>
+    </script>
+
+    <!-- <script id="main.html" type="text/ng-template">
+       <ion-view left-buttons="leftButtons" right-buttons="rightButtons" hide-back-button="true" title="'Awesome'">
+         <ion-content padding="true" has-header="true">
+           <h1>Main app here</h1>
+           <button class="button" ng-click="toIntro()">Do Tutorial Again</button>
+         </ion-content>
+       </ion-view>
+     </script> -->
+
   </body>
 </html>

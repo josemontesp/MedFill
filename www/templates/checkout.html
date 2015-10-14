@@ -1,6 +1,17 @@
 <ion-view view-title="Tu pedido">
   <ion-content class="padding">
-    <button class="button button-energized" ng-click="addImage()">
+    <div class="list list-inset">
+      <div class="item">
+        <div class="row">
+          <div class="col col-75">Detalle</div>
+        </div>
+        <div class="row" ng-repeat="remedio in remedios">
+          <div class="col col-75">{{remedio.nombre}}</div>
+          <div class="col">$ {{numFormat(remedio.precio)}}</div>
+        </div>
+      </div>
+    </div>
+    <button class="button button-block button-outline button-calm" ng-click="addImage()">
    Subir receta
   </button><br><br>
   <ion-scroll>

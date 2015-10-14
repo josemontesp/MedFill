@@ -1,4 +1,4 @@
-<ion-view view-title="Buscar">
+<!-- <ion-view view-title="Buscar">
 
   <ion-content class="padding">
 <label class="item item-input">
@@ -13,6 +13,21 @@
           <p>{{producto.mg}}</p>
           <h1 style="position:absolute; right: 30px; top: 5px; color: green;">{{producto.precio}}</h1>
         </a>
+    </div>
+  </ion-content>
+</ion-view> -->
+
+<ion-view view-title="Buscar">
+
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Remedio</span>
+        <input type="search" placeholder="Remedio" ng-model="busqueda.parametro">
+      </label>
+      <a class="item" href="#/tab/misRemedios/buscar/{{producto.objectId}}" ng-if="busqueda.parametro.length != 0" ng-repeat="producto in busqueda.lista">
+        {{producto.nombre}}
+      </a>
     </div>
   </ion-content>
 </ion-view>

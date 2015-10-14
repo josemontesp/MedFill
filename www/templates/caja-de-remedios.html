@@ -1,8 +1,10 @@
 <ion-view view-title="Mis remedios">
 <ion-nav-buttons side="right">
-      <i class="button ion-plus-round" ng-click="buscarRemedio()"> Agregar</i>
-   </ion-nav-buttons>
+    <!-- <i class="button button-icon icon ion-ios-plus-empty" ng-click="buscarRemedio()"></i> -->
+    <i class="button button-clear" ng-click="hacerPedido()" ng-if="remedios.length != 0">Siguiente</i>
+ </ion-nav-buttons>
   <ion-content>
+    <br><br>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="remedio in remedios" type="item-text-wrap" href="#/tab/misRemedios/1">
         <img ng-src="{{remedio.fotoPastilla.url}}">
@@ -14,20 +16,23 @@
           Eliminar
         </ion-option-button>
       </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" href="#/tab/misRemedios/buscar">
+      <!-- <ion-item class="item-remove-animate item-avatar item-icon-right" href="#/tab/misRemedios/buscar">
           <img src="" alt="">
+          Agregar remedio
+      </ion-item> -->
+      <ion-item class="item item-icon-left" href="#/tab/misRemedios/buscar">
+          <i class="icon ion-ios-plus-outline" style="color:#5da6dc;"></i>
           Agregar remedio
       </ion-item>
 
       
     </ion-list>
-    
-
   </ion-content>
-  <div >
-      <button class="button button-block button-positive" style="bottom: 45px; position: absolute;" ng-click="hacerPedido()">
+<!--   <div >
+      <button class="button button-block button-calm" style="bottom: 45px; position: absolute;" ng-click="hacerPedido()">
         Hacer pedido{{hola}}
       </button>
-    </div>
+  </div> -->
+
   
 </ion-view>
