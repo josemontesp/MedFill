@@ -4,7 +4,7 @@
 </ion-nav-buttons>
 
   <ion-content>
-  	<div class="list card">
+  	<div class="list list-inset">
 
 	  <div class="item item-avatar">
 	    <img src="{{producto.fotoPastilla.url}}">
@@ -16,6 +16,19 @@
 	    <img src="{{producto.fotoCaja.url}}">
 	  </div>
 
+	</div>
+	<div class="list">
+	  <label class="item item-input item-select">
+	    <div class="input-label">
+	      Dosis
+	    </div>
+	    <select>
+	      <option>45 mg</option>
+	      <option>65 mg</option>
+	      <option selected>81 mg</option>
+	      <option>100 mg</option>
+	    </select>
+	  </label>
 	</div>
   </ion-content>
 </ion-view>

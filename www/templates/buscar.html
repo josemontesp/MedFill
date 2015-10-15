@@ -22,8 +22,8 @@
   <ion-content>
     <div class="list">
       <label class="item item-input item-floating-label">
-        <span class="input-label">Remedio</span>
-        <input type="search" placeholder="Remedio" ng-model="busqueda.parametro">
+        <span class="input-label search_label">Nombre del remedio</span>
+        <input type="search" placeholder="Nombre del Remedio (ej: aspirina, lipitor, etc)" ng-model="busqueda.parametro">
       </label>
       <a class="item" href="#/tab/misRemedios/buscar/{{producto.objectId}}" ng-if="busqueda.parametro.length != 0" ng-repeat="producto in busqueda.lista">
         {{producto.nombre}}

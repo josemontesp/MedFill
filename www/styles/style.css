@@ -73,7 +73,26 @@
 
 }
 
-.input-label {
+.search_label {
 	font-size: 0.6em !important;
 	color: #5da6dc !important;
+}
+
+
+.med_title {
+  margin-top: -2px;
+  background-color: #668396;
+}
+
+.med_title, .med_title p, .med_title h2 {
+  color: #fff !important;
+  text-transform: uppercase;
+}
+
+.center{
+     text-align:center;
+}
+
+.item_narrow {
+  padding: 0;
 }

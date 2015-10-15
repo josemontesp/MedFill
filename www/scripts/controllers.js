@@ -153,6 +153,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, CajaDeRemedios) {
+
     // $scope.chat = Chats.get($stateParams.chatId);
     $scope.refresh = function() {
 
