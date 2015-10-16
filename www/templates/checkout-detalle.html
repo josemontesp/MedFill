@@ -1,0 +1,27 @@
+<ion-view view-title="Detalle">
+  <ion-nav-buttons side="right">
+      <i class="button button-clear" ng-click="siguiente()">Siguiente</i>
+   </ion-nav-buttons>
+  <ion-content>
+  <div class="list list-inset">
+    <div class="item">
+      <div class="row" style="text-align: center; border-bottom: 1px dotted #668396; margin-bottom: 15px; color: #668396;">
+        <div class="col">Detalle</div>
+      </div>
+      <div class="row" ng-repeat="remedio in remedios" style="color: #668396; font-size: 0.8; font-weight: 500;">
+        <div class="col col-75">
+          {{remedio.nombre}}<br>
+          <span style="font-size: 85%; color: #BDCAC5; font-weight: light;">
+            {{remedio.mg}}mg {{remedio.cantidadDeComprimidos}} dosis
+          </span>
+        </div>
+        <div class="col">$ {{numFormat(remedio.precio)}}</div>
+      </div>
+      <div class="row" style="border-top: 1px dotted #668396; margin: 15px auto; color: #668396; font-size: 0.8; font-weight: 800;">
+        <div class="col col-75">Total:</div>
+        <div class="col">$ {{numFormat(totalPrice())}}</div>
+      </div>
+    </div>
+  </div>
+  </ion-content>
+</ion-view>

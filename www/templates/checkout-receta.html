@@ -1,0 +1,14 @@
+<ion-view view-title="Receta">
+  <ion-content>
+
+  <button class="button button-block button-outline button-calm" ng-click="addImage()">
+   Subir receta
+  </button><br><br>
+  <ion-scroll>
+  <div ng-repeat="image in images">
+  	<img ng-src="{{urlForImage(image)}}" style="border-width: 1px;border-color: Black;" height="200px" />
+  	<p>{{urlForImage(image)}}</p>
+  </div>
+  </ion-scroll>
+  </ion-content>
+</ion-view>

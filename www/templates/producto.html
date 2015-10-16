@@ -4,19 +4,14 @@
 </ion-nav-buttons>
 
   <ion-content>
-  	<div class="list list-inset">
-
-	  <div class="item item-avatar">
+  	<div class="list">
+	  <div class="item item-avatar med_title">
 	    <img src="{{producto.fotoPastilla.url}}">
 	    <h2>{{producto.nombre}}</h2>
 	    <p>{{producto.mg}}mg</p>
 	  </div>
-
-	  <div class="item item-image">
-	    <img src="{{producto.fotoCaja.url}}">
-	  </div>
-
 	</div>
+	<br>
 	<div class="list">
 	  <label class="item item-input item-select">
 	    <div class="input-label">
@@ -25,10 +20,31 @@
 	    <select>
 	      <option>45 mg</option>
 	      <option>65 mg</option>
-	      <option selected>81 mg</option>
+	      <option>81 mg</option>
 	      <option>100 mg</option>
 	    </select>
 	  </label>
+	  <label class="item item-input item-select">
+	    <div class="input-label">
+	      Frecuencia
+	    </div>
+	    <select>
+	      <option selected>1 dosis al día</option>
+	      <option>2 dosis al día</option>
+	      <option>3 dosis al día</option>
+	      <option>1 dosis cada dos días</option>
+	    </select>
+	  </label>
+	  <br><br>
+  	  <div class="item item-icon-right" ng-click="#">
+      	Ver opciones bio equivalentes
+        <span class="badge badge-calm">3</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </div>
+  	  <div class="item item-icon-right" ng-click="#">
+  	  	Información sobre el remedio
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </div>
 	</div>
   </ion-content>
 </ion-view>

@@ -72,15 +72,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.misRemediosCheckOut', {
-      url: '/misRemedios/checkOut',
-      views: {
-        'tab-mis-remedios': {
-          templateUrl: 'templates/checkout.html',
-          controller: 'CheckOutCtrl'
-        }
-      }
-    })
+    .state('tab.misRemediosCheckOutFrecuencia', {
+          url: '/misRemedios/checkOutFrecuencia',
+          views: {
+            'tab-mis-remedios': {
+              templateUrl: 'templates/checkout-frecuencia.html',
+              controller: 'CheckOutFrecuenciaCtrl'
+            }
+          }
+        })
+      .state('tab.misRemediosCheckOutDetalle', {
+          url: '/misRemedios/checkOutDetalle',
+          views: {
+            'tab-mis-remedios': {
+              templateUrl: 'templates/checkout-detalle.html',
+              controller: 'CheckOutDetalleCtrl'
+            }
+          }
+        })
+        .state('tab.misRemediosCheckOutReceta', {
+          url: '/misRemedios/checkOutReceta',
+          views: {
+            'tab-mis-remedios': {
+              templateUrl: 'templates/checkout-receta.html',
+              controller: 'CheckOutRecetaCtrl'
+            }
+          }
+        })
+
+
+
+
     .state('tab.misRemediosBuscar', {
       url: '/misRemedios/buscar',
       views: {

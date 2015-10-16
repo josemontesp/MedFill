@@ -1,5 +1,8 @@
 /* Empty. Add your own CSS if you like */
 
+
+/* Intro */
+
 .slider {
   height: 100%;
 }
@@ -31,7 +34,7 @@
   margin: 10px 0px;
 }
 
-
+/* Ionic classes override */
 
 .medblue, .button-calm {
 	color: #5da6dc !important;
@@ -41,7 +44,7 @@
 	border-color: #5da6dc !important;
 }
 
-.button-calm:active, .button-calm:hover {
+.button-calm:active, .badge-calm {
 	background-color: #5da6dc !important;
 }
 
@@ -78,6 +81,16 @@
 	color: #5da6dc !important;
 }
 
+.list .item-radio input:checked ~ .item-content {
+  background-color: #fff;
+  color: #5da6dc;
+}
+
+.list .item-radio .radio-icon    {
+  color: #5da6dc;
+}
+
+/* New classes */
 
 .med_title {
   margin-top: -2px;
@@ -94,5 +107,6 @@
 }
 
 .item_narrow {
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
