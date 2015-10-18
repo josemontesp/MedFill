@@ -1,7 +1,7 @@
 node_modules
 .idea
 app
-.ionic.project
+ionic.project
 .temp
 .sass-cache
 app/bower_components
