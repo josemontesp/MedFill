@@ -27,7 +27,7 @@ angular.module('starter.services', [])
       $rootScope.$broadcast('cambio-la-caja');
     },
     get: function(remedioId) {
-      for (var i = 0; i < chats.length; i++) {
+      for (var i = 0; i < caja.length; i++) {
         if (caja[i].objectId == remedioId) {
           return caja[i];
         }

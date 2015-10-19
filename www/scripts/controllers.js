@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('NotificacionesCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, CajaDeRemedios, $ionicModal, $state) {
+.controller('MisRemediosCtrl', function($scope, CajaDeRemedios, $ionicModal, $state) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -31,6 +31,10 @@ angular.module('starter.controllers', [])
 
 
 .controller('BuscarCtrl', function($scope, Productos, $ionicHistory) {
+     $scope.$on('$ionicView.beforeEnter', function(e) {
+        $scope.busqueda.parametro = '';
+    });
+
     $scope.busqueda = {
         lista: [],
         parametro: ''
@@ -52,6 +56,8 @@ angular.module('starter.controllers', [])
     $scope.$watch('busqueda.parametro', function() {
         if (Productos.all()) {
             $scope.busqueda.buscar();
+        }else{
+            Productos.actualizar();
         }
     });
 })
@@ -67,6 +73,7 @@ angular.module('starter.controllers', [])
     })
 
 .controller('CheckOutFrecuenciaCtrl', function($scope, $stateParams, CajaDeRemedios, $state) {
+    $scope.form = {choice : 0};
     $scope.siguiente = function() {
         $state.go('tab.misRemediosCheckOutDetalle');
     };
@@ -266,9 +273,10 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, CajaDeRemedios) {
+.controller('EditarRemedioCtrl', function($scope, $stateParams, CajaDeRemedios) {
 
     // $scope.chat = Chats.get($stateParams.chatId);
+    $scope.producto = CajaDeRemedios.get($stateParams.remedioId);
     $scope.refresh = function() {
 
     };

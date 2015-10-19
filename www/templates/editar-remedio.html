@@ -8,7 +8,7 @@
   <ion-content class>
     <ion-list>
       <div class="item item-avatar med_title">
-        <img src="{{producto.fotoPastilla.url}}">
+        <img ng-src="{{producto.fotoPastilla.url}}">
         <h2>{{producto.nombre}}</h2>
         <p>{{producto.mg}}mg</p>
       </div>
@@ -36,12 +36,12 @@
       </select>
     </label>
     <br><br>
-      <div class="item item-icon-right" ng-click="#">
+      <div class="item item-icon-right" ng-click="">
         Ver opciones bio equivalentes
         <span class="badge badge-calm">3</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </div>
-      <div class="item item-icon-right" ng-click="#">
+      <div class="item item-icon-right" ng-click="">
         Información sobre el remedio
         <i class="icon ion-chevron-right icon-accessory"></i>
       </div>

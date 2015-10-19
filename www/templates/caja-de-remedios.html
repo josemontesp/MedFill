@@ -6,7 +6,7 @@
   <ion-content>
     <br><br>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="remedio in remedios" type="item-text-wrap" href="#/tab/misRemedios/1">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="remedio in remedios" type="item-text-wrap" ng-href="#/tab/misRemedios/{{remedio.objectId}}">
         <img ng-src="{{remedio.fotoPastilla.url}}">
         <h2>{{remedio.nombre}}</h2>
         <p>{{remedio.mg}}mg {{remedio.cantidadDeComprimidos}} comprimidos</p>
@@ -20,7 +20,7 @@
           <img src="" alt="">
           Agregar remedio
       </ion-item> -->
-      <ion-item class="item item-icon-left" href="#/tab/misRemedios/buscar" style="color: #5da6dc;">
+      <ion-item class="item item-icon-left" ng-click="buscarRemedio()" style="color: #5da6dc;">
           <i class="icon ion-ios-plus-outline" style="color:#5da6dc; font-size: 48px;"> </i>
           <span style="padding-left: 12px;">Agregar remedio</span>
       </ion-item>

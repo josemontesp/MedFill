@@ -53,12 +53,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.notificaciones', {
+    url: '/notificaciones',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-notificaciones': {
+        templateUrl: 'templates/notificaciones.html',
+        controller: 'NotificacionesCtrl'
       }
     }
   })
@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'tab-mis-remedios': {
           templateUrl: 'templates/caja-de-remedios.html',
-          controller: 'ChatsCtrl'
+          controller: 'MisRemediosCtrl'
         }
       }
     })
@@ -121,12 +121,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           }
         }
       })
-    .state('tab.misRemediosDetalle', {
+    .state('tab.editarRemedio', {
       url: '/misRemedios/:remedioId',
       views: {
         'tab-mis-remedios': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          templateUrl: 'templates/editar-remedio.html',
+          controller: 'EditarRemedioCtrl'
         }
       }
     })

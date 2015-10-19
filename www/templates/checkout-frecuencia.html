@@ -1,31 +1,34 @@
 <ion-view view-title="Frecuencia">
   <ion-nav-buttons side="right">
-      <i class="button button-clear" ng-click="siguiente()">Siguiente</i>
+      <i class="button button-clear" ng-click="siguiente()" ng-if="form.choice > 0">Siguiente</i>
    </ion-nav-buttons>
   <ion-content>
   <br><br>
   <div class="list">
-    <label class="item item-radio">
-      <input type="radio" name="group">
+    <ion-radio ng-model="form.choice" ng-init="choice=0" ng-value="14">Cada dos semanas</ion-radio>
+    <ion-radio ng-model="form.choice" ng-value="30">Una vez al mes</ion-radio>
+    <ion-radio ng-model="form.choice" ng-value="60">Cada dos meses</ion-radio>
+    <!-- <label class="item item-radio">
+      <input type="radio" name="group" ng-model="hola">
       <div class="item-content">
         Cada dos semanas
       </div>
       <i class="radio-icon ion-ios-checkmark-outline medblue spin" style="font-weight: bold;"></i>
     </label>
     <label class="item item-radio">
-      <input type="radio" name="group">
+      <input type="radio" name="group"ng-model="hola">
       <div class="item-content">
         Una vez al mes
       </div>
       <i class="radio-icon ion-ios-checkmark-outline medblue"></i>
     </label>
     <label class="item item-radio">
-      <input type="radio" name="group">
+      <input type="radio" name="group"ng-model="hola">
       <div class="item-content">
         Cada dos meses
       </div>
       <i class="radio-icon ion-ios-checkmark-outline medblue"></i>
-    </label>
+    </label> -->
     <p class="padding">Elige la frecuencia con la que quieres recibir tus remedios. Te enviaremos la cantidad exacta de dosis que necesitas.</p>
   </div>
   </ion-content>
