@@ -17,11 +17,8 @@
 	    <div class="input-label">
 	      Dosis
 	    </div>
-	    <select>
-	      <option>45 mg</option>
-	      <option>65 mg</option>
-	      <option>81 mg</option>
-	      <option>100 mg</option>
+	    <select ng-model="producto.mg">
+	      <option ng-repeat="dosis in producto.dosisDisponibles" ng-selected="dosis == producto.mg" value='{{dosis}}'>{{dosis}}mg</option>
 	    </select>
 	  </label>
 	  <label class="item item-input item-select">

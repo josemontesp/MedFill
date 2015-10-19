@@ -18,7 +18,7 @@
           Dosis
         </div>
         <select ng-model="producto.mg">
-          <option ng-repeat="dosis in producto.dosisDisponibles" {{(dosis == producto.mg ) ? 'selected' : ''}} value='{{dosis}}'>{{dosis}}mg</option>
+          <option ng-repeat="dosis in producto.dosisDisponibles" ng-selected="dosis == producto.mg" value='{{dosis}}'>{{dosis}}mg</option>
         </select>
       </label>
       <label class="item item-input item-select">

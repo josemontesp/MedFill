@@ -4,7 +4,6 @@ angular.module('starter.controllers', [])
     $scope.actualizar = function(){
         $scope.$broadcast('scroll.refreshComplete');
     };
-
 })
 
 .controller('MisRemediosCtrl', function($scope, CajaDeRemedios, $ionicModal, $state) {
@@ -33,7 +32,6 @@ angular.module('starter.controllers', [])
         CajaDeRemedios.remove(remedio);
     };
 })
-
 
 .controller('BuscarCtrl', function($scope, Productos, $ionicHistory) {
      $scope.$on('$ionicView.beforeEnter', function(e) {
@@ -71,16 +69,17 @@ angular.module('starter.controllers', [])
         }
     });
 })
-    .controller('BuscarProductoCtrl', function($scope, $stateParams, CajaDeRemedios, Productos, $ionicHistory, goBackMany) {
-        $scope.$on('llegaron-los-productos', function(event, args) {
-            $scope.producto = Productos.get($stateParams.remedioId);
-        });
+
+.controller('BuscarProductoCtrl', function($scope, $stateParams, CajaDeRemedios, Productos, $ionicHistory, goBackMany) {
+    $scope.$on('llegaron-los-productos', function(event, args) {
         $scope.producto = Productos.get($stateParams.remedioId);
-        $scope.agregar = function() {
-            CajaDeRemedios.add($scope.producto);
-            goBackMany(2);
-        };
-    })
+    });
+    $scope.producto = Productos.get($stateParams.remedioId);
+    $scope.agregar = function() {
+        CajaDeRemedios.add($scope.producto);
+        goBackMany(2);
+    };
+})
 
 .controller('CheckOutFrecuenciaCtrl', function($scope, $stateParams, CajaDeRemedios, $state) {
     $scope.form = {choice : 0};
@@ -297,6 +296,10 @@ angular.module('starter.controllers', [])
     $scope.refresh = function() {
 
     };
+
+    $scope.selected = function(dosis){
+        return (dosis == $scope.producto.mg) ? ' selected ' : '';
+    }
 })
 
 .controller('AccountCtrl', function($scope, $state) {
