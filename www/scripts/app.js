@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'parse-angular', 'ngCordova'])
 
-.run(function($ionicPlatform, Productos) {
+.run(function($ionicPlatform, $state, Productos) {
     //Parse
     Parse.initialize("LTqcyG0ha3vNhMAZzoP9mbFptGLxx3Kvhpcn4kCF", "qYSZbPjccbxkRfKCOksb3kzBENtTPgBbVglwsyr3");
     Productos.actualizar();
@@ -25,6 +25,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //StatusBar.styleDefault();
       StatusBar.style(1); //status bar blanca
     }
+    if(window.localStorage['didTutorial'] === "true") {
+      console.log('Skip intro');
+    }else{
+      $state.go('intro');
+    }
+
   });
 })
 
@@ -142,7 +148,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/tab/misRemedios');
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise('/tab/misRemedios');
+  // $urlRouterProvider.otherwise("/");
 
 });

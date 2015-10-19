@@ -330,16 +330,7 @@ angular.module('starter.controllers', [])
 
   //No this is silly
   // Check if the user already did the tutorial and skip it if so
-if(window.localStorage['didTutorial'] === "true") {
-    console.log('Skip intro');
-    startApp();
-  }
-  else{
-  setTimeout(function () {
-        navigator.splashscreen.hide();
-    }, 750);
-   }
-  
+
 
   // Move to the next slide
   $scope.next = function() {
