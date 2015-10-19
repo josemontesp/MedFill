@@ -1,6 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('NotificacionesCtrl', function($scope) {})
+.controller('NotificacionesCtrl', function($scope) {
+    $scope.actualizar = function(){
+        $scope.$broadcast('scroll.refreshComplete');
+    };
+
+})
 
 .controller('MisRemediosCtrl', function($scope, CajaDeRemedios, $ionicModal, $state) {
     // With the new view caching in Ionic, Controllers are only called
@@ -42,11 +47,16 @@ angular.module('starter.controllers', [])
 
     $scope.$on('llegaron-los-productos', function(event, args) {
         $scope.busqueda.lista = Productos.all();
+        $scope.$broadcast('scroll.refreshComplete');
     });
 
     $scope.clear = function() {
         alert();
         $scope.busqueda.parametro = "";
+    };
+
+    $scope.actualizar = function(){
+        Productos.actualizar();
     };
 
     $scope.busqueda.buscar = function() {

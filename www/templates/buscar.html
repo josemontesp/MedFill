@@ -18,8 +18,11 @@
 </ion-view> -->
 
 <ion-view view-title="Buscar">
-
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="actualizar()">
+    </ion-refresher>
     <br><br>
     <div class="list">
       <label class="item item-input item-floating-label item_narrow">

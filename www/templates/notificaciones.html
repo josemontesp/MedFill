@@ -1,8 +1,12 @@
 <ion-view view-title="Notificaciones">
-  <ion-content class="padding">
-    <div class="list">
-      
-    
-    </div>
-  </ion-content>
+<ion-content class="padding">
+<ion-refresher
+pulling-text="Pull to refresh..."
+on-refresh="actualizar()">
+</ion-refresher>
+<div class="list">
+	
+	
+</div>
+</ion-content>
 </ion-view>
