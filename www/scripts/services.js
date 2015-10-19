@@ -33,6 +33,19 @@ angular.module('starter.services', [])
         }
       }
       return null;
+    },
+    edit: function(remedio){
+      for (var i=0; i<caja.length; i++){
+        if (caja[i].objectId == remedio.objectId){
+            caja[i] = remedio;
+            $localstorage.setObject('caja', caja);
+            $rootScope.$broadcast('cambio-la-caja');
+            console.log(remedio.objectId + ' editado');
+            return;
+        }
+      }
+      console.log('este remedio no está en la caja');
+      return;
     }
   };
 })

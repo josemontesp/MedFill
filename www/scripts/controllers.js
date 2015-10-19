@@ -287,10 +287,14 @@ angular.module('starter.controllers', [])
 
     // $scope.chat = Chats.get($stateParams.chatId);
     $scope.producto = CajaDeRemedios.get($stateParams.remedioId);
+    $scope.$watch('producto.mg', function(newValue, oldValue){
+        CajaDeRemedios.edit($scope.producto);
+    });
     $scope.remove = function(id){
         CajaDeRemedios.remove(CajaDeRemedios.get(id));
         goBackMany(1);
-    }
+    };
+
     $scope.refresh = function() {
 
     };
