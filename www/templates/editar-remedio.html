@@ -25,12 +25,13 @@
       <div class="input-label">
         Frecuencia
       </div>
-      <select>
-        <option selected>1 dosis al día</option>
-        <option>2 dosis al día</option>
-        <option>3 dosis al día</option>
-        <option>1 dosis cada dos días</option>
-      </select>
+      <select ng-model="producto.dosisDiaria">
+          <option value="1" ng-selected="producto.dosisDiaria == 1">1 dosis al día</option>
+          <option value="2" ng-selected="producto.dosisDiaria == 2">2 dosis al día</option>
+          <option value="3" ng-selected="producto.dosisDiaria == 3">3 dosis al día</option>
+          <option value="4" ng-selected="producto.dosisDiaria == 4">4 dosis al día</option>
+          <option value="0.5" ng-selected="producto.dosisDiaria == 0.5">1 dosis cada dos días</option>
+        </select>
     </label>
     <br><br>
       <div class="item item-icon-right" ng-click="">

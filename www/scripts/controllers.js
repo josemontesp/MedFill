@@ -296,10 +296,6 @@ angular.module('starter.controllers', [])
     $scope.refresh = function() {
 
     };
-
-    $scope.selected = function(dosis){
-        return (dosis == $scope.producto.mg) ? ' selected ' : '';
-    }
 })
 
 .controller('AccountCtrl', function($scope, $state) {
