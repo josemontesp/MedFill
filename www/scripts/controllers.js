@@ -282,7 +282,6 @@ angular.module('starter.controllers', [])
     }
 })
 
-
 .controller('EditarRemedioCtrl', function($scope, $stateParams, CajaDeRemedios, goBackMany) {
 
     // $scope.chat = Chats.get($stateParams.chatId);
@@ -307,30 +306,24 @@ angular.module('starter.controllers', [])
 
     $scope.toIntro = function(){ //temporal, para poder volver a ver el intro
         window.localStorage['didTutorial'] = "false";
-        $state.go('intro');
+        $state.go('intro', {}, {reload: true});
     };
 })
 
-.controller('IntroCtrl', function($scope, $state) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+    $scope.$on('$ionicView.beforeEnter', function(e) {
+        $ionicSlideBoxDelegate.slide(0);
+    });
  
   $scope.startApp = function() {
     $state.go('tab.misRemedios');
-
-    // Set a flag that we finished the tutorial
     window.localStorage['didTutorial'] = true;
    };
 
-  // Called to navigate to the main app
   var startApp = function() {
     $state.go('tab.misRemedios');
-
-    // Set a flag that we finished the tutorial
     window.localStorage['didTutorial'] = true;
   };
-
-  //No this is silly
-  // Check if the user already did the tutorial and skip it if so
-
 
   // Move to the next slide
   $scope.next = function() {
