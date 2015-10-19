@@ -273,10 +273,14 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('EditarRemedioCtrl', function($scope, $stateParams, CajaDeRemedios) {
+.controller('EditarRemedioCtrl', function($scope, $stateParams, CajaDeRemedios, goBackMany) {
 
     // $scope.chat = Chats.get($stateParams.chatId);
     $scope.producto = CajaDeRemedios.get($stateParams.remedioId);
+    $scope.remove = function(id){
+        CajaDeRemedios.remove(CajaDeRemedios.get(id));
+        goBackMany(1);
+    }
     $scope.refresh = function() {
 
     };
