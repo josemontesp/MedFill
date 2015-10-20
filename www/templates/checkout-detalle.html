@@ -12,10 +12,10 @@
         <div class="col col-75">
           {{remedio.nombre}}<br>
           <span style="font-size: 85%; color: #BDCAC5; font-weight: light;">
-            {{remedio.mg}}mg {{remedio.cantidadDeComprimidos}} dosis
+            {{remedio.mg}}mg {{remedio.dosisDiaria*frecuencia}} dosis
           </span>
         </div>
-        <div class="col">$ {{numFormat(remedio.precio)}}</div>
+        <div class="col">$ {{numFormat(remedio.precio*remedio.dosisDiaria*frecuencia)}}</div>
       </div>
       <div class="row" style="border-top: 1px dotted #668396; margin: 15px auto; color: #668396; font-size: 0.8; font-weight: 800;">
         <div class="col col-75">Total:</div>

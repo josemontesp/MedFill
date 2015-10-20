@@ -101,11 +101,11 @@ angular.module('starter.controllers', [])
         // $state.go('tab.misRemediosCheckOutPago');
     };
     $scope.remedios = CajaDeRemedios.all();
-
+    $scope.frecuencia = CajaDeRemedios.getFrecuencia();
     $scope.totalPrice = function(){
         var total = 0;
         for(count=0; count<$scope.remedios.length; count++){
-            total += $scope.remedios[count].precio
+            total += $scope.remedios[count].precio*$scope.remedios[count].dosisDiaria*$scope.frecuencia;
         }
         return total;
     };
