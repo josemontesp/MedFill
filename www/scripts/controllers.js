@@ -15,6 +15,7 @@ angular.module('starter.controllers', [])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
     $scope.remedios = CajaDeRemedios.all();
+    console.log($scope.remedios);
     $scope.$on('cambio-la-caja', function(event, args) {
         $scope.remedios = CajaDeRemedios.all();
     });
@@ -95,10 +96,15 @@ angular.module('starter.controllers', [])
 
 .controller('CheckOutDetalleCtrl', function($scope, $stateParams, CajaDeRemedios, $state) {
     $scope.siguiente = function() {
-        // IF remedio con receta !
-        $state.go('tab.misRemediosCheckOutReceta');
-        //ELSE
-        // $state.go('tab.misRemediosCheckOutPago');
+        $state.go('tab.misRemediosCheckOutReceta');return;
+        //Hay que crear la view pago para ejecutar esto
+        for(var i = 0; i < $scope.remedios.length; i++){
+            if ($scope.remedios[i].conReceta){
+                $state.go('tab.misRemediosCheckOutReceta');
+                return;
+            }
+        }
+        $state.go('tab.misRemediosCheckOutPago');
     };
     $scope.remedios = CajaDeRemedios.all();
     $scope.frecuencia = CajaDeRemedios.getFrecuencia();
