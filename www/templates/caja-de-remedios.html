@@ -9,7 +9,7 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="remedio in remedios" type="item-text-wrap" ng-href="#/tab/misRemedios/{{remedio.objectId}}">
         <img ng-src="{{remedio.fotoPastilla.url}}">
         <h2>{{remedio.nombre}}</h2>
-        <p>{{remedio.mg}} mg {{remedio.cantidadDeComprimidos}} comprimidos</p>
+        <p>{{remedio.mg}} mg</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(remedio)">
