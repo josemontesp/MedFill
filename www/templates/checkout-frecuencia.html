@@ -5,9 +5,9 @@
   <ion-content>
   <br><br>
   <div class="list">
-    <ion-radio ng-model="form.choice" ng-init="choice=0" ng-value="14">Cada dos semanas</ion-radio>
-    <ion-radio ng-model="form.choice" ng-value="30">Una vez al mes</ion-radio>
-    <ion-radio ng-model="form.choice" ng-value="60">Cada dos meses</ion-radio>
+    <ion-radio ng-model="form.choice" ng-value="14" ng-selected="frecuenciaAnterior == 14">Cada dos semanas</ion-radio>
+    <ion-radio ng-model="form.choice" ng-value="30" ng-selected="frecuenciaAnterior == 30">Una vez al mes</ion-radio>
+    <ion-radio ng-model="form.choice" ng-value="60" ng-selected="frecuenciaAnterior == 60">Cada dos meses</ion-radio>
     <!-- <label class="item item-radio">
       <input type="radio" name="group" ng-model="hola">
       <div class="item-content">

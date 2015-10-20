@@ -3,6 +3,7 @@ angular.module('starter.services', [])
 .factory('CajaDeRemedios', function($rootScope, $localstorage) {
 
   var recetas = [];
+  var frecuencia = $localstorage.get('frecuencia') || 0;
   var caja = $localstorage.getObject('caja') || [];
 
   return {
@@ -10,7 +11,11 @@ angular.module('starter.services', [])
       return caja;
     },
     remove: function(remedio) {
-      caja.splice(caja.indexOf(remedio), 1);
+      for (var i=0; i<caja.length; i++){
+        if (caja[i].objectId == remedio.objectId){
+          caja.splice(i, 1);
+        }
+      }
       $localstorage.setObject('caja', caja);
     },
     add: function(remedio){
@@ -46,6 +51,13 @@ angular.module('starter.services', [])
       }
       console.log('este remedio no está en la caja');
       return;
+    },
+    setFrecuencia: function(value){
+      $localstorage.set('frecuencia', value);
+      frecuencia = value;
+    },
+    getFrecuencia: function(){
+      return frecuencia;
     }
   };
 })

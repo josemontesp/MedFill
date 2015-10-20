@@ -82,7 +82,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('CheckOutFrecuenciaCtrl', function($scope, $stateParams, CajaDeRemedios, $state) {
-    $scope.form = {choice : 0};
+    $scope.frecuenciaAnterior = CajaDeRemedios.getFrecuencia();
+    $scope.form = {choice : $scope.frecuenciaAnterior};
+    $scope.$watch('form.choice', function(newValue, oldValue){
+        CajaDeRemedios.setFrecuencia($scope.form.choice); 
+    });
+
     $scope.siguiente = function() {
         $state.go('tab.misRemediosCheckOutDetalle');
     };
