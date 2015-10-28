@@ -17,6 +17,7 @@ angular.module('starter.controllers', [])
     $scope.remedios = CajaDeRemedios.all();
     $scope.$on('cambio-la-caja', function(event, args) {
         $scope.remedios = CajaDeRemedios.all();
+        console.log('hola');
     });
 
     $scope.siguiente = function() {
@@ -33,10 +34,14 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('BuscarCtrl', function($scope, Productos, $ionicHistory) {
+.controller('BuscarCtrl', function($scope, Productos, $ionicHistory, $cordovaNetwork) {
      $scope.$on('$ionicView.beforeEnter', function(e) {
         $scope.busqueda.parametro = '';
     });
+
+    $scope.online = function(){
+        return $cordovaNetwork.isOnline();
+    };
 
     $scope.busqueda = {
         lista: [],
@@ -281,7 +286,8 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function($scope, $state, $rootScope, SessionService) {
+.controller('AccountCtrl', function($scope, $state, $rootScope, $cordovaNetwork, SessionService) {
+    console.log($cordovaNetwork.isOnline());
     $rootScope.$watch('sessionUser', function(newVal, oldVal){
         $scope.user = $rootScope.sessionUser;
         console.log($scope.user);

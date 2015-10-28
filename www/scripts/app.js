@@ -7,11 +7,21 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'parse-angular', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $state, Productos) {
+.run(function($ionicPlatform, $rootScope, $state, $cordovaNetwork, Productos) {
+    //Cordova
+    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      Productos.actualizar();
+      console.log('online');
+    })
+    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      console.log('offline');
+    })
+
     //Parse
     Parse.initialize("LTqcyG0ha3vNhMAZzoP9mbFptGLxx3Kvhpcn4kCF", "qYSZbPjccbxkRfKCOksb3kzBENtTPgBbVglwsyr3");
     $rootScope.sessionUser = Parse.User.current();
     Productos.actualizar();
+
     //Ionic
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -24,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       //StatusBar.styleDefault();
-      StatusBar.style(1); //status bar blanca
+      //StatusBar.style(1); //status bar blanca
     }
     if(window.localStorage['didTutorial'] === "true") {
       console.log('Skip intro');
