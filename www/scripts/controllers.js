@@ -206,7 +206,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope, $cordovaNetwork, CajaDeRemedios) {
+.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope, $cordovaNetwork, CajaDeRemedios, goBackMany) {
     $ionicModal.fromTemplateUrl('templates/login-modal.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -248,7 +248,8 @@ angular.module('starter.controllers', [])
         };
 
         $scope.volverALaCaja = function(){
-
+            goBackMany(4);
+            console.log('going back...');
         };
 
         $scope.hacerPedido = function(){
@@ -277,6 +278,7 @@ angular.module('starter.controllers', [])
             pedido.set('usuario', $rootScope.sessionUser);
             pedido.save().then(function(pedido){
                 console.log('guardado exitosamente');
+                $scope.volverALaCaja();
             }, function(error){
                 console.log("Error: " + error.code + " " + error.message);
             });
