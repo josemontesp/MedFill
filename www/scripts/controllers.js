@@ -206,7 +206,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope) {
+.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope, $cordovaNetwork, CajaDeRemedios) {
     $ionicModal.fromTemplateUrl('templates/login-modal.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -240,6 +240,50 @@ angular.module('starter.controllers', [])
         $scope.$on('$destroy', function() {
             $scope.modal.remove();
         });
+
+        $scope.formData = {
+            direccion: '',
+            telefono: '',
+            comentarios: ''
+        };
+
+        $scope.volverALaCaja = function(){
+
+        };
+
+        $scope.hacerPedido = function(){
+            var items = [];
+            var remedios = CajaDeRemedios.all();
+            var frecuencia = CajaDeRemedios.getFrecuencia();
+
+            //Creando items de compra
+            var ItemCompra = Parse.Object.extend("ItemCompra");
+            for (var i = 0; i < remedios.length; i++){
+                console.log(remedios[i].objectId);
+                var item = new ItemCompra();
+                item.set('producto', {"__type":"Pointer","className":"Producto","objectId": remedios[i].objectId});
+                item.set('dosisDiaria', remedios[i].dosisDiaria);
+                item.set('cantidad', remedios[i].dosisDiaria*frecuencia);
+                console.log(frecuencia);
+                items.push(item);
+            }
+
+            //Creando pedido
+            var Pedido = Parse.Object.extend("Pedido");
+            var pedido = new Pedido();
+            pedido.set('items', items);
+            pedido.set('recurrencia', parseInt(frecuencia));
+            pedido.set('direccion', $scope.formData.direccion);
+            pedido.set('usuario', $rootScope.sessionUser);
+            pedido.save().then(function(pedido){
+                console.log('guardado exitosamente');
+            }, function(error){
+                console.log("Error: " + error.code + " " + error.message);
+            });
+
+
+        };
+
 })
 
 .controller('loginModalController', function($scope, $rootScope, SessionService) {
