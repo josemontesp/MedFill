@@ -7,9 +7,10 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'parse-angular', 'ngCordova'])
 
-.run(function($ionicPlatform, $state, Productos) {
+.run(function($ionicPlatform, $rootScope, $state, Productos) {
     //Parse
     Parse.initialize("LTqcyG0ha3vNhMAZzoP9mbFptGLxx3Kvhpcn4kCF", "qYSZbPjccbxkRfKCOksb3kzBENtTPgBbVglwsyr3");
+    $rootScope.sessionUser = Parse.User.current();
     Productos.actualizar();
     //Ionic
   $ionicPlatform.ready(function() {
@@ -102,6 +103,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             'tab-mis-remedios': {
               templateUrl: 'templates/checkout-receta.html',
               controller: 'CheckOutRecetaCtrl'
+            }
+          }
+        })
+        .state('tab.misRemediosCheckOutEnvio', {
+          url: '/misRemedios/checkOutEnvio',
+          views: {
+            'tab-mis-remedios': {
+              templateUrl: 'templates/checkout-envio.html',
+              controller: 'CheckOutEnvioCtrl'
             }
           }
         })

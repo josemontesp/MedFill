@@ -15,7 +15,6 @@ angular.module('starter.controllers', [])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
     $scope.remedios = CajaDeRemedios.all();
-    console.log($scope.remedios);
     $scope.$on('cambio-la-caja', function(event, args) {
         $scope.remedios = CajaDeRemedios.all();
     });
@@ -96,7 +95,8 @@ angular.module('starter.controllers', [])
 
 .controller('CheckOutDetalleCtrl', function($scope, $stateParams, CajaDeRemedios, $state) {
     $scope.siguiente = function() {
-        $state.go('tab.misRemediosCheckOutReceta');return;
+        $state.go('tab.misRemediosCheckOutReceta');
+        return;
         //Hay que crear la view pago para ejecutar esto
         for(var i = 0; i < $scope.remedios.length; i++){
             if ($scope.remedios[i].conReceta){
@@ -122,7 +122,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('CheckOutRecetaCtrl', function($scope, $stateParams, $state, CajaDeRemedios, $cordovaCamera, $cordovaFile) {
-    // 1
+    $scope.siguiente = function() {
+        $state.go('tab.misRemediosCheckOutEnvio');
+    }
     $scope.images = [];
     console.log($scope.images);
     $scope.addImage = function() {
@@ -199,97 +201,67 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('CheckOutCtrl', function($scope, $stateParams, CajaDeRemedios, $cordovaCamera, $cordovaFile) {
-    
-    $scope.remedios = CajaDeRemedios.all();
+.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope) {
+    $ionicModal.fromTemplateUrl('templates/login-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            backdropClickToClose: false,
+            hardwareBackButtonClose: false
+        }).then(function(modal) {
+            $scope.modal = modal;
+        }).then(function(modal) {
+            if (!$rootScope.sessionUser) {
+                $scope.openModal();
+            }
+            //auto appear/dissapear
+            $scope.$watch(function() {
+                return $rootScope.sessionUser;
+            }, function(newVal, oldVal) {
+                if (!$rootScope.sessionUser) {
+                    $scope.openModal();
+                } else {
+                    $scope.modal.hide();
+                }
+            });
+        });
 
-    $scope.totalPrice = function(){
-        var total = 0;
-        for(count=0; count<$scope.remedios.length; count++){
-            total += $scope.remedios[count].precio
-        }
-        return total;
-    };
-
-    $scope.numFormat = function(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    };
-
-    // 1
-    $scope.images = [];
-    console.log($scope.images);
-    $scope.addImage = function() {
-        // 2
-        var options = {
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
-            allowEdit: false,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
+        $scope.openModal = function() {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+            $scope.modal.hide();
         };
 
-        // 3
-        $cordovaCamera.getPicture(options).then(function(imageData) {
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+})
 
-            // 4
-            onImageSuccess(imageData);
-
-            function onImageSuccess(fileURI) {
-                createFileEntry(fileURI);
-            }
-
-            function createFileEntry(fileURI) {
-                window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
-            }
-
-            // 5
-            function copyFile(fileEntry) {
-                var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
-                var newName = makeid() + name;
-
-                window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
-                        fileEntry.copyTo(
-                            fileSystem2,
-                            newName,
-                            onCopySuccess,
-                            fail
-                        );
-                    },
-                    fail);
-            }
-
-            // 6
-            function onCopySuccess(entry) {
-                $scope.$apply(function() {
-                    $scope.images.push(entry.nativeURL);
-                    console.log($scope.images);
-                });
-            }
-
-            function fail(error) {
-                console.log("fail: " + error.code);
-            }
-
-            function makeid() {
-                var text = "";
-                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-                for (var i = 0; i < 5; i++) {
-                    text += possible.charAt(Math.floor(Math.random() * possible.length));
-                }
-                return text;
-            }
-
+.controller('loginModalController', function($scope, $rootScope, SessionService) {
+    $scope.credenciales = {
+        signup: {},
+        login: {}
+    };
+    $scope.login = function() {
+        console.log($scope.credenciales.login.password);
+        console.log($scope.credenciales.login.email);
+        SessionService.login($scope.credenciales.login.email, $scope.credenciales.login.password).then(function(resp) {
+            $scope.modal.hide();
         }, function(err) {
-            console.log(err);
+            console.log(error);
         });
     }
 
-    $scope.urlForImage = function(imageName) {
-        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-        var trueOrigin = cordova.file.dataDirectory + name;
-        return trueOrigin;
-    }
+    $scope.signup = function() {
+        SessionService.signup(
+            $scope.credenciales.signup.nombreCompleto,
+            $scope.credenciales.signup.telefono,
+            $scope.credenciales.signup.email,
+            $scope.credenciales.signup.password
+        ).then(function(resp) {
+            $scope.modal.hide();
+        }, function(err) {});
+    };
 })
 
 .controller('EditarRemedioCtrl', function($scope, $stateParams, CajaDeRemedios, goBackMany) {
@@ -309,7 +281,13 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function($scope, $state) {
+.controller('AccountCtrl', function($scope, $state, $rootScope, SessionService) {
+    $rootScope.$watch('sessionUser', function(newVal, oldVal){
+        $scope.user = $rootScope.sessionUser;
+        console.log($scope.user);
+    });
+    $scope.user = $rootScope.sessionUser;
+    
     $scope.settings = {
         enableFriends: true
     };
@@ -318,6 +296,10 @@ angular.module('starter.controllers', [])
         window.localStorage['didTutorial'] = "false";
         $state.go('intro', {}, {reload: true});
     };
+
+    $scope.logout = function(){
+        SessionService.logout();
+    }
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {

@@ -1,0 +1,39 @@
+<ion-modal-view ng-controller="loginModalController">
+<ion-header-bar>
+<h1 class="title">Ingresa a MedFill</h1>
+</ion-header-bar>
+<ion-content>
+<div class="list">
+	<div class="item item-divider">
+		Crea tu usuario
+	</div>
+	<label class="item item-input">
+		<input type="text" style="text-transform: capitalize;" placeholder="Nombre completo" ng-model="credenciales.signup.nombreCompleto">
+	</label>
+	<label class="item item-input">
+		<input type="tel" placeholder="Celular" ng-model="credenciales.signup.telefono">
+	</label>
+	<label class="item item-input">
+		<input type="email" ng-model="credenciales.signup.email" placeholder="Email">
+	</label>
+	<label class="item item-input">
+		<input type="password" placeholder="Contraseña" ng-model="credenciales.signup.password">
+	</label>
+	<button class="button button-positive" ng-click="signup()">
+	Crear usuario
+	</button>
+	<div class="item item-divider" style="height: 60px; line-height: 60px;">
+		Inicia sesión
+	</div>
+	<label class="item item-input">
+		<input type="email" ng-model="credenciales.login.email" placeholder="Email">
+	</label>
+	<label class="item item-input">
+		<input type="password" placeholder="Contraseña" ng-model="credenciales.login.password">
+	</label>
+	<button class="button button-positive" ng-click="login()">
+	Iniciar sesión
+	</button>
+</div>
+</ion-content>
+</ion-modal-view>
