@@ -1,10 +1,19 @@
 # MedFill
-This is an ionic proyect, in order to work you need to do
+Iniciar proyecto base con: $ yo ionic
+(https://github.com/diegonetto/generator-ionic)
 
-npm install ionic
+git init
 
+git remote add origin https://github.com/josemontesp/MedFill.git
 
-ionic start
+git fetch --all
 
-including the necesary plugins
+git reset --hard origin/master
 
+git pull origin master
+
+Now that you have the proyect in your computer you can
+ionic serve
+ionic build ios
+ionic run
+ionic emulate
