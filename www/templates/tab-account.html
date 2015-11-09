@@ -10,6 +10,15 @@
     <ion-item ng-click="logout()" ng-if="user">
     Cerrar sesión {{user.attributes.nombreCompleto}}
     </ion-item>
+    <ion-item ng-click="openModal()" ng-hide="user">
+    Iniciar Sesión
+    </ion-item>
+    <ion-item href="https://es.surveymonkey.com/r/M9RFSLC">
+    ¡Danos tu feedback!
+    </ion-item>
+    <!-- <ion-item href="https://medfill.customersure.com/en/survey/Rlw2W6eqKz2WVYMqvg1X/completion/new">
+    ¡Danos tu feedback!
+    </ion-item> -->
     </ion-list>
   </ion-content>
 </ion-view>

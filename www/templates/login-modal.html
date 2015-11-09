@@ -1,7 +1,11 @@
 <ion-modal-view ng-controller="loginModalController">
 <ion-header-bar>
 <h1 class="title">Ingresa a MedFill</h1>
+<div class="buttons">
+    <button class="button" ng-click="closeModal()">Cerrar</button>
+  </div>
 </ion-header-bar>
+
 <ion-content>
 <div class="list">
 	<div class="item item-divider">
@@ -11,15 +15,12 @@
 		<input type="text" style="text-transform: capitalize;" placeholder="Nombre completo" ng-model="credenciales.signup.nombreCompleto">
 	</label>
 	<label class="item item-input">
-		<input type="tel" placeholder="Celular" ng-model="credenciales.signup.telefono">
-	</label>
-	<label class="item item-input">
 		<input type="email" ng-model="credenciales.signup.email" placeholder="Email">
 	</label>
 	<label class="item item-input">
 		<input type="password" placeholder="Contraseña" ng-model="credenciales.signup.password">
 	</label>
-	<button class="button button-positive" ng-click="signup()">
+	<button ng-disabled="enProceso" class="button button-full button-positive" ng-click="signup()">
 	Crear usuario
 	</button>
 	<div class="item item-divider" style="height: 60px; line-height: 60px;">
@@ -31,9 +32,10 @@
 	<label class="item item-input">
 		<input type="password" placeholder="Contraseña" ng-model="credenciales.login.password">
 	</label>
-	<button class="button button-positive" ng-click="login()">
+	<button ng-disabled="enProceso" class="button button-full button-positive" ng-click="login()">
 	Iniciar sesión
 	</button>
+	<ion-spinner ng-if="enProceso"></ion-spinner>
 </div>
 </ion-content>
 </ion-modal-view>

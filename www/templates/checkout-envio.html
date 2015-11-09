@@ -13,9 +13,10 @@
     <textarea placeholder="Comentarios" ng-model="formData.comentarios">
     </textarea>
   </label>
-    <button class="button button-full button-balanced" ng-click="hacerPedido()">
+    <button class="button button-full button-balanced" ng-click="hacerPedido()" ng-disabled="enProceso">
       Hacer pedido
     </button>
+    <ion-spinner ng-if="enProceso" ></ion-spinner>
     </div>
   </ion-content>
 </ion-view>

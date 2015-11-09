@@ -132,11 +132,36 @@ angular.module('starter.controllers', [])
     }
     $scope.images = [];
     console.log($scope.images);
+
+
+    var origen;
+
+    $scope.eligeOrigen = function(){
+        navigator.notification.confirm("Subir foto desde:", function(buttonIndex) {
+            switch(buttonIndex) {
+                case 1:
+                    console.log("Carrete Pressed");
+                    origen = Camera.PictureSourceType.PHOTOLIBRARY;
+                    break;
+                case 2:
+                    console.log("Camara Pressed");
+                    origen = Camera.PictureSourceType.CAMERA;
+                    break;
+            }
+            $scope.addImage();
+        }, "MedFill", [ "Carrete", "Cámara"]);
+    };
+
+    
+
+
     $scope.addImage = function() {
         // 2
+
+
         var options = {
             destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+            sourceType: origen,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
@@ -206,7 +231,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('CheckOutEnvioCtrl', function($scope, $ionicModal, $rootScope, $cordovaNetwork, CajaDeRemedios, goBackMany) {
+.controller('CheckOutEnvioCtrl', function($scope, $rootScope, $ionicModal, $rootScope, $cordovaNetwork, CajaDeRemedios, goBackMany) {
     $ionicModal.fromTemplateUrl('templates/login-modal.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -247,12 +272,21 @@ angular.module('starter.controllers', [])
             comentarios: ''
         };
 
+        $rootScope.$watch('sessionUser', function(newVal, oldVal){
+            if ($rootScope.sessionUser){
+                $scope.formData.telefono = $rootScope.sessionUser.get('telefono') || '';
+            }
+        });
+
+        $scope.enProceso = false;
+
         $scope.volverALaCaja = function(){
             goBackMany(4);
             console.log('going back...');
         };
 
         $scope.hacerPedido = function(){
+            $scope.enProceso = true;
             var items = [];
             var remedios = CajaDeRemedios.all();
             var frecuencia = CajaDeRemedios.getFrecuencia();
@@ -263,7 +297,7 @@ angular.module('starter.controllers', [])
                 console.log(remedios[i].objectId);
                 var item = new ItemCompra();
                 item.set('producto', {"__type":"Pointer","className":"Producto","objectId": remedios[i].objectId});
-                item.set('dosisDiaria', remedios[i].dosisDiaria);
+                item.set('dosisDiaria', parseInt(remedios[i].dosisDiaria));
                 item.set('cantidad', remedios[i].dosisDiaria*frecuencia);
                 console.log(frecuencia);
                 items.push(item);
@@ -279,39 +313,49 @@ angular.module('starter.controllers', [])
             pedido.save().then(function(pedido){
                 console.log('guardado exitosamente');
                 $scope.volverALaCaja();
+                $scope.enProceso = false;
             }, function(error){
                 console.log("Error: " + error.code + " " + error.message);
+                $scope.enProceso = false;
             });
 
 
         };
-
 })
 
 .controller('loginModalController', function($scope, $rootScope, SessionService) {
-    $scope.credenciales = {
+        $scope.credenciales = {
         signup: {},
         login: {}
     };
+
+    $scope.enProceso = false;
+
     $scope.login = function() {
+        $scope.enProceso = true;
         console.log($scope.credenciales.login.password);
         console.log($scope.credenciales.login.email);
         SessionService.login($scope.credenciales.login.email, $scope.credenciales.login.password).then(function(resp) {
+            $scope.enProceso = false;
             $scope.modal.hide();
         }, function(err) {
+            $scope.enProceso = false;
             console.log(error);
         });
     }
 
     $scope.signup = function() {
+        $scope.enProceso = true;
         SessionService.signup(
             $scope.credenciales.signup.nombreCompleto,
-            $scope.credenciales.signup.telefono,
             $scope.credenciales.signup.email,
             $scope.credenciales.signup.password
         ).then(function(resp) {
+            $scope.enProceso = false;
             $scope.modal.hide();
-        }, function(err) {});
+        }, function(err) {
+            $scope.enProceso = false;
+        });
     };
 })
 
@@ -332,13 +376,33 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function($scope, $state, $rootScope, $cordovaNetwork, SessionService) {
-    console.log($cordovaNetwork.isOnline());
+.controller('AccountCtrl', function($scope, $state, $rootScope, $cordovaNetwork, $ionicModal, SessionService) {
+    $ionicModal.fromTemplateUrl('templates/login-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up',
+            backdropClickToClose: false,
+            hardwareBackButtonClose: false
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.openModal = function() {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
+
+
     $rootScope.$watch('sessionUser', function(newVal, oldVal){
         $scope.user = $rootScope.sessionUser;
-        console.log($scope.user);
     });
     $scope.user = $rootScope.sessionUser;
+    console.log($scope.user);
     
     $scope.settings = {
         enableFriends: true
@@ -351,7 +415,7 @@ angular.module('starter.controllers', [])
 
     $scope.logout = function(){
         SessionService.logout();
-    }
+    };
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
