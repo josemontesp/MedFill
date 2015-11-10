@@ -126,13 +126,15 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('CheckOutRecetaCtrl', function($scope, $stateParams, $state, CajaDeRemedios, $cordovaCamera, $cordovaFile) {
+.controller('CheckOutRecetaCtrl', function($scope, $stateParams, $state, CajaDeRemedios, $cordovaCamera, $cordovaFile, $ionicScrollDelegate) {
     $scope.siguiente = function() {
         $state.go('tab.misRemediosCheckOutEnvio');
     }
     $scope.images = [];
     console.log($scope.images);
-
+    // $scope.$watch('images',function(newVal, oldVal){
+    //     $ionicScrollDelegate.$getByHandle('scroll').resize();
+    // });
 
     var origen;
 

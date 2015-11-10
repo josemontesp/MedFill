@@ -6,12 +6,13 @@
 
   <button class="button button-block button-outline button-calm" ng-click="eligeOrigen()">
    Subir receta
-  </button><br><br>
-  <ion-scroll>
-  <div ng-repeat="image in images">
-  	<img ng-src="{{urlForImage(image)}}" style="border-width: 1px;border-color: Black;" height="200px" />
-  	<!-- <p>{{urlForImage(image)}}</p> -->
-  </div>
-  </ion-scroll>
+  </button><br>
+    <div class="list">
+      <img ng-src="{{urlForImage(image)}}" style="border-width: 1px;border-color: Black; width: auto; height: auto; max-width: 100%; display: block;" ng-repeat="image in images"/>
+    </div>
+   <!--  <div ng-repeat="image in images">
+    	<img ng-src="{{urlForImage(image)}}" style="border-width: 1px;border-color: Black; width: auto; height: auto; max-width: 100%; display: block;" />
+    </div> -->
+  <br><br><br><br>
   </ion-content>
 </ion-view>
