@@ -283,6 +283,7 @@ angular.module('starter.controllers', [])
         $scope.enProceso = false;
 
         $scope.volverALaCaja = function(){
+            alert('Tu suscipción fue recibida por nuestro equipo. Te notificaremos cuando se valide');
             goBackMany(4);
             console.log('going back...');
         };
