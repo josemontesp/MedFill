@@ -1,6 +1,16 @@
 # MedFill
-Iniciar proyecto base con: $ yo ionic
+MedFill is the Farmacy reinveted. We focus on people that takes medication every day indefinetly. We deliver their medicine at their doors every month, 30% cheaper than the regular pharmacies.
+
+The interaction from our users with MedFill is through our app:
+
+
+#How to run this project on your machine:
+
+Initialize base project with Yeoman: 
+$ yo ionic
 (https://github.com/diegonetto/generator-ionic)
+
+Then copy the repo
 
 git init
 
