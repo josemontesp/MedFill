@@ -10,7 +10,7 @@ Initialize base project with Yeoman:
 $ yo ionic
 (https://github.com/diegonetto/generator-ionic)
 
-Then copy the repo
+Then copy the repo:
 
 git init
 
@@ -23,7 +23,11 @@ git reset --hard origin/master
 git pull origin master
 
 Now that you have the proyect in your computer you can
+
 ionic serve
+
 ionic build ios
+
 ionic run
+
 ionic emulate
